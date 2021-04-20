@@ -10,9 +10,10 @@ pipeline
       script
         {
         def workspace = env.WORKSPACE
-        def CONFIG_PATH= "${workspace}/config/config.properties"
+        def CONFIG_PATH= "${workspace}/rtcjenkinsutil/config/config.properties"
+        def setEnvVariables = load "${workspace}/rtcjenkinsutil/libs/setEnvironment.groovy"
         echo "${CONFIG_PATH}"
-        ${workspace}/libs/setEnvironment(CONFIG_PATH)
+        setEnvVariables.setEnvVars(CONFIG_PATH)
         }
       }
     }
