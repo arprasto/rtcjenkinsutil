@@ -15,6 +15,7 @@ pipeline
         echo "${CONFIG_PATH}"
         setEnvVariables.setEnvVars(CONFIG_PATH)
         }
+        echo "ServerURI = ${env.ServerURI}"
       }
     }
   }
