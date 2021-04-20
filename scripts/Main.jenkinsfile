@@ -12,7 +12,7 @@ pipeline
         def workspace = env.WORKSPACE
         def CONFIG_PATH= "${workspace}/config/config.properties"
         echo "${CONFIG_PATH}"
-        setEnvironment(CONFIG_PATH)
+        ${workspace}/libs/setEnvironment(CONFIG_PATH)
         }
       }
     }
