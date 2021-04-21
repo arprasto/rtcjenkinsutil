@@ -37,7 +37,6 @@ pipeline {
         }
         stage('prepare SCM') {
 
-
             agent {
                     docker{
                         // label $NODE
