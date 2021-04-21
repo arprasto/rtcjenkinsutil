@@ -5,7 +5,7 @@ FROM ubuntu:14.04
 RUN apt-get update
 RUN apt-get install --yes git python node-gyp
 RUN git clone https://github.com/IBM/spm-kubernetes
-RUN apt-get install --yes curl && \
- curl -O https://nodejs.org/dist/latest-v12.x/node-v12.19.0-linux-x64.tar.gz && \
- tar xzf node-v12.19.0-linux-x64.tar.gz 
-ENV PATH=/node-v12.19.0-linux-x64/bin:${PATH}
+RUN apt-get install --yes curl xz-utils && \
+ curl -O https://nodejs.org/dist/v14.16.1/node-v14.16.1-linux-x64.tar.xz && \
+ tar -xf node-v14.16.1-linux-x64.tar.xz
+ENV PATH=/node-v14.16.1-linux-x64/bin:${PATH}
