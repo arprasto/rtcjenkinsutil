@@ -1,22 +1,108 @@
-pipeline
-{
-  agent any
-  stages
-  {
-    stage('Load Configuration')
-    {
-    steps
-      {
-      script
-        {
-        def workspace = env.WORKSPACE
-        def CONFIG_PATH= "${workspace}/rtcjenkinsutil/config/config.properties"
-        def setEnvVariables = load "${workspace}/rtcjenkinsutil/libs/setEnvironment.groovy"
-        echo "${CONFIG_PATH}"
-        setEnvVariables.setEnvVars(CONFIG_PATH)
-        }
-        echo "ServerURI = ${env.ServerURI}"
-      }
+@Library('Curam-Devops-Utils')_
+
+// Pipeline to build incremental changes to ensure the code does not break, can be configured to run periodically or
+// polled when code changes are checked in.
+// please update the config.properties to configure necesary property files
+
+
+// Provide the relativelocation of the config PATH
+
+
+pipeline {
+
+    agent any
+
+    parameters {
+
+        string(name: 'BRANCH', defaultValue: 'master', description: 'Enter the branch to build. Example:master')
+        string(name: 'NODE', defaultValue: 'parabellum', description:  'Enter the name of the node where you want the pipeline to run')
+
     }
-  }
+    stages{
+        stage('Load Configuration') {
+
+            steps {
+
+                script{
+                    def workspace = env.WORKSPACE
+                    def CONFIG_PATH= "${workspace}/rtcjenkinsutil/config/config.properties"
+                    echo "${CONFIG_PATH}"
+                    setEnvironment(CONFIG_PATH)
+                }
+
+
+            }
+
+
+        }
+        stage('prepare SCM') {
+
+
+            agent {
+                    docker{
+                        // label $NODE
+                        registryUrl "${env.DOCKER_REGISTRY_URL}"
+                        image "${env.SPM_IMAGE_FOR_BUILD}"
+                        registryCredentialsId "${env.DOCKER_CREDS}"
+                    }
+                }
+
+            steps {
+
+                // downloads all resources and updates all necessary properties and readies the code base for build.
+                // uses_jobSpecific property files
+                // USE_TAG is true, to pick last successful build tag.
+                // USE_TAG is false to pick up the latest commit on repository.
+                script{
+                    def USE_TAG = "false"
+                    prepareSCM(USE_TAG)
+                }
+            }
+        }
+        stage('Build Curam') {
+            agent {
+                docker{
+                        // label $NODE
+                        registryUrl "${env.DOCKER_REGISTRY_URL}"
+                        image "${env.SPM_IMAGE_FOR_BUILD}"
+                        registryCredentialsId "${env.DOCKER_CREDS}"
+                }
+            }
+
+            steps {
+
+                echo "Run Standard builds"
+                buildStandardCuram()
+
+                echo "Run custom builds"
+                buildCustomCuram()
+            }
+        }
+        stage('Database builds or migration') {
+            agent {
+                docker{
+                        // label $NODE
+                        registryUrl "${env.DOCKER_REGISTRY_URL}"
+                        image "${env.SPM_IMAGE_FOR_BUILD}"
+                        registryCredentialsId "${env.DOCKER_CREDS}"
+                }
+            }
+
+            steps {
+
+                echo "running full database build for incremental, sending parameter as true parameter as true"
+                databaseMigrationCuram(env.isFullDBBuild)
+            }
+        }
+    }
+
+    post {
+
+        always{
+            echo "Create a tag if successful and send slack notification if enabled"
+
+            postCompletionSteps(currentBuild.result)
+
+        }
+    }
 }
