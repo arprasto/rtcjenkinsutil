@@ -28,6 +28,8 @@ pipeline {
                     def CONFIG_PATH= "${workspace}/rtcjenkinsutil/config/config.properties"
                     echo "${CONFIG_PATH}"
                     setEnvironment(CONFIG_PATH)
+                    def jardir = env.JARDIR
+                    echo "${jardir}"
                 }
 
 
