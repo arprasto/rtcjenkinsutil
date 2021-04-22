@@ -28,14 +28,8 @@ pipeline {
                     def CONFIG_PATH= "${workspace}/rtcjenkinsutil/config/config.properties"
                     echo "${CONFIG_PATH}"
                     setEnvironment(CONFIG_PATH)
-                    def jardir = env.JARDIR
-                    echo "${jardir}"
                 }
-
-
             }
-
-
         }
         stage('prepare SCM') {
 
@@ -50,13 +44,13 @@ pipeline {
 
             steps {
 
-                // downloads all resources and updates all necessary properties and readies the code base for build.
-                // uses_jobSpecific property files
-                // USE_TAG is true, to pick last successful build tag.
-                // USE_TAG is false to pick up the latest commit on repository.
+                step([$class: 'RTCPostBuildDeliverPublisher', failOnError: true])
+                echo "Checking out a snapshot in node from snapshot configuration"
+                checkout([$class: 'RTCScm', avoidUsingToolkit: false, buildTool: '6.0.4', buildType: [buildWorkspace: 'METS_DEV_21.3_MAC', componentLoadConfig: 'loadAllComponents', customizedSnapshotName: '', loadDirectory: '${WORKSPACE}', loadPolicy: 'useComponentLoadConfig', value: 'buildWorkspace'], credentialsId: 'pwar100', overrideGlobal: false, serverURI: 'https://clm.dhs.mn.gov/ccm', timeout: 480])
                 script{
+                    echo "Checking out a snapshot in node from snapshot configuration"
                     def USE_TAG = "false"
-                    prepareSCM(USE_TAG)
+                    //prepareSCM(USE_TAG)
                 }
             }
         }
@@ -73,10 +67,10 @@ pipeline {
             steps {
 
                 echo "Run Standard builds"
-                buildStandardCuram()
+                //buildStandardCuram()
 
                 echo "Run custom builds"
-                buildCustomCuram()
+                //buildCustomCuram()
             }
         }
         stage('Database builds or migration') {
@@ -92,7 +86,7 @@ pipeline {
             steps {
 
                 echo "running full database build for incremental, sending parameter as true parameter as true"
-                databaseMigrationCuram(env.isFullDBBuild)
+                //databaseMigrationCuram(env.isFullDBBuild)
             }
         }
     }
@@ -102,7 +96,7 @@ pipeline {
         always{
             echo "Create a tag if successful and send slack notification if enabled"
 
-            postCompletionSteps(currentBuild.result)
+            //postCompletionSteps(currentBuild.result)
 
         }
     }
