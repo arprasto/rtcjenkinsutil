@@ -14,9 +14,10 @@ pipeline {
 
     parameters {
 
-        string(name: 'BRANCH', defaultValue: 'main', description: 'Enter the branch to build. Example:master')
-        string(name: 'NODE', defaultValue: 'parabellum', description:  'Enter the name of the node where you want the pipeline to run')
-        string(name: 'SRC_PROJECT_NAME', defaultValue: 'METS (ccm)', description:  'Enter the name of the node where you want the pipeline to run')
+        string(name: 'RTCServerURI', defaultValue: 'https://clm.dhs.mn.gov/ccm', description: 'RTC server URI')
+        string(name: 'credentialsId', defaultValue: 'pwar100', description: 'RTC specific user credentials-id added in Jenkins global authentication')
+        string(name: 'RepositoryWorkspace', defaultValue: 'METS_DEV_21.3_MAC', description: 'User specific My Repository Workspaces')
+
     }
     stages{
         stage('Load Configuration') {
@@ -31,73 +32,15 @@ pipeline {
                 }
             }
         }
-        stage('prepare SCM') {
+        stage('code checkout') {
 
-            agent {
-                    docker{
-                        // label $NODE
-                        registryUrl "${env.DOCKER_REGISTRY_URL}"
-                        image "${env.SPM_IMAGE_FOR_BUILD}"
-                        registryCredentialsId "${env.DOCKER_CREDS}"
-                    }
-                }
+            agent any
 
             steps {
-
                 step([$class: 'RTCPostBuildDeliverPublisher', failOnError: true])
                 echo "Checking out a snapshot in node from snapshot configuration"
-                checkout([$class: 'RTCScm', avoidUsingToolkit: false, buildTool: '6.0.4', buildType: [buildWorkspace: 'METS_DEV_21.3_MAC', componentLoadConfig: 'loadAllComponents', customizedSnapshotName: '', loadDirectory: '${WORKSPACE}', loadPolicy: 'useComponentLoadConfig', value: 'buildWorkspace'], credentialsId: 'pwar100', overrideGlobal: false, serverURI: 'https://clm.dhs.mn.gov/ccm', timeout: 480])
-                script{
-                    echo "Checking out a snapshot in node from snapshot configuration"
-                    def USE_TAG = "false"
-                    //prepareSCM(USE_TAG)
-                }
+                checkout([$class: 'RTCScm', avoidUsingToolkit: false, buildTool: '6.0.4', buildType: [buildWorkspace: params.RepositoryWorkspace, componentLoadConfig: 'loadAllComponents', customizedSnapshotName: '', loadDirectory: '.', loadPolicy: 'useComponentLoadConfig', value: 'buildWorkspace'], credentialsId: params.credentialsId, overrideGlobal: false, serverURI: params.RTCServerURI, timeout: 480])
             }
-        }
-        stage('Build Curam') {
-            agent {
-                docker{
-                        // label $NODE
-                        registryUrl "${env.DOCKER_REGISTRY_URL}"
-                        image "${env.SPM_IMAGE_FOR_BUILD}"
-                        registryCredentialsId "${env.DOCKER_CREDS}"
-                }
-            }
-
-            steps {
-
-                echo "Run Standard builds"
-                //buildStandardCuram()
-
-                echo "Run custom builds"
-                //buildCustomCuram()
-            }
-        }
-        stage('Database builds or migration') {
-            agent {
-                docker{
-                        // label $NODE
-                        registryUrl "${env.DOCKER_REGISTRY_URL}"
-                        image "${env.SPM_IMAGE_FOR_BUILD}"
-                        registryCredentialsId "${env.DOCKER_CREDS}"
-                }
-            }
-
-            steps {
-
-                echo "running full database build for incremental, sending parameter as true parameter as true"
-                //databaseMigrationCuram(env.isFullDBBuild)
-            }
-        }
-    }
-
-    post {
-
-        always{
-            echo "Create a tag if successful and send slack notification if enabled"
-
-            //postCompletionSteps(currentBuild.result)
-
         }
     }
 }
