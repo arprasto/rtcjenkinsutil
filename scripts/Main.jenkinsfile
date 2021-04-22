@@ -14,9 +14,9 @@ pipeline {
 
     parameters {
 
-        string(name: 'BRANCH', defaultValue: 'master', description: 'Enter the branch to build. Example:master')
+        string(name: 'BRANCH', defaultValue: 'main', description: 'Enter the branch to build. Example:master')
         string(name: 'NODE', defaultValue: 'parabellum', description:  'Enter the name of the node where you want the pipeline to run')
-
+        string(name: 'SRC_PROJECT_NAME', defaultValue: 'METS (ccm)', description:  'Enter the name of the node where you want the pipeline to run')
     }
     stages{
         stage('Load Configuration') {
