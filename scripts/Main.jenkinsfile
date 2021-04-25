@@ -15,7 +15,7 @@ pipeline {
         string(name: 'DBservername', defaultValue: 'spmdevops1.fyre.ibm.com', description: 'IP or Hostname of DB server. curam.db.servername')
         string(name: 'DBserverport', defaultValue: '1555', description: 'The Database server port. curam.db.serverport. curam.db.serverport')
         string(name: 'ORCservicename', defaultValue: 'XE', description: 'Database name. Specifies the database name chosen during an install. curam.db.oracle.servicename')
-        string(name: 'DBusername', defaultValue: 'METS_DEV_21.3_MAC', description: 'Oracle Database username curam.db.username')
+        string(name: 'DBusername', defaultValue: 'mets_dev_213', description: 'Oracle Database username curam.db.username')
         string(name: 'DBpassword', defaultValue: 'Hc8b5Rjeq8fEAWioaQBvbw==', description: 'Oracle Database encrypted password curam.db.password')
         string(name: 'tnameservport', defaultValue: '1221', description: 'Location of the naming service. curam.environment.tnameserv.port')
     }
@@ -108,10 +108,10 @@ pipeline {
                 }
             }
         }
-        stage('run server build') {
+        stage('server build') {
         agent {
               docker{
-                      // label $NODE
+                      label 'master'
                       registry "${env.DOCKER_REGISTRY}"
                       image "${env.SPM_IMAGE_FOR_BUILD}"
                       registryCredentialsId "${env.DOCKER_CREDS}"
@@ -119,10 +119,8 @@ pipeline {
           }
             steps {
                 script{
-                    def workspace = env.WORKSPACE
-                    def CONFIG_PATH= "${workspace}/rtcjenkinsutil/config/config.properties"
-                    echo "${CONFIG_PATH}"
-                    setEnvironment(CONFIG_PATH)
+                    echo "starting server build"
+                    buildServer()
                 }
             }
         }

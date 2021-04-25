@@ -12,6 +12,5 @@ ENV ANT_HOME=/opt/ant/apache-ant-1.10.6
 ENV PATH=${PATH}:$ANT_HOME/bin
 RUN mkdir -p /opt/dependencies
 COPY dependencies /opt/dependencies
-COPY j2ee.jar /opt/dependencies
 ENV J2EE_JAR=/opt/dependencies/j2ee.jar
 ENV IBM_MQ=/opt/dependencies/9.1.5.0-IBM-MQ-Java-InstallRA.jar
