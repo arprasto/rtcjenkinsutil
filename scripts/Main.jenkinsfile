@@ -1,29 +1,63 @@
 @Library('Curam-Devops-Utils')_
 
-// Pipeline to build incremental changes to ensure the code does not break, can be configured to run periodically or
-// polled when code changes are checked in.
-// please update the config.properties to configure necesary property files
-
-
-// Provide the relativelocation of the config PATH
-
-
 pipeline {
 
-    agent any
+    agent {
+          node{
+          label 'master'
+          }
+          }
 
     parameters {
-
         string(name: 'RTCServerURI', defaultValue: 'https://clm.dhs.mn.gov/ccm', description: 'RTC server URI')
         string(name: 'credentialsId', defaultValue: 'pwar100', description: 'RTC specific user credentials-id added in Jenkins global authentication')
-        string(name: 'RepositoryWorkspace', defaultValue: 'METS_DEV_21.3_MAC', description: 'User specific My Repository Workspaces')
-
+        string(name: 'RepositoryWorkspace', defaultValue: 'METS_DEV_21.3_MAC', description: 'User specific public My Repository Workspaces')
+        string(name: 'DBservername', defaultValue: 'spmdevops1.fyre.ibm.com', description: 'IP or Hostname of DB server. curam.db.servername')
+        string(name: 'DBserverport', defaultValue: '1555', description: 'The Database server port. curam.db.serverport. curam.db.serverport')
+        string(name: 'ORCservicename', defaultValue: 'XE', description: 'Database name. Specifies the database name chosen during an install. curam.db.oracle.servicename')
+        string(name: 'DBusername', defaultValue: 'METS_DEV_21.3_MAC', description: 'Oracle Database username curam.db.username')
+        string(name: 'DBpassword', defaultValue: 'Hc8b5Rjeq8fEAWioaQBvbw==', description: 'Oracle Database encrypted password curam.db.password')
+        string(name: 'tnameservport', defaultValue: '1221', description: 'Location of the naming service. curam.environment.tnameserv.port')
     }
+
     stages{
-        stage('Load Configuration') {
-
+        stage('create checkoutDir') {
+          /*agent {
+                node{
+                label 'master'
+                }
+                }*/
             steps {
-
+                script{
+                    def workspace = env.JENKINS_HOME
+                    def repo = params.RepositoryWorkspace
+                    def CHECKOUT_PATH= "${workspace}/${repo}"
+                    createDir(CHECKOUT_PATH)
+                    env.checkoutPath = CHECKOUT_PATH
+                }
+            }
+        }
+        stage('code checkout') {
+          /*agent {
+                node{
+                label 'master'
+                }
+                }*/
+            steps {
+                step([$class: 'RTCPostBuildDeliverPublisher', failOnError: true])
+                echo "Checking out a snapshot in node from snapshot configuration"
+                /*
+                checkout([$class: 'RTCScm', avoidUsingToolkit: false, buildTool: '6.0.4', buildType: [buildWorkspace: params.RepositoryWorkspace, componentLoadConfig: 'loadAllComponents', customizedSnapshotName: '', loadDirectory: env.checkoutPath, loadPolicy: 'useComponentLoadConfig', value: 'buildWorkspace'], credentialsId: params.credentialsId, overrideGlobal: false, serverURI: params.RTCServerURI, timeout: 480])
+                */
+            }
+        }
+        stage('Load config.properties') {
+          /*agent {
+                node{
+                label 'master'
+                }
+                }*/
+            steps {
                 script{
                     def workspace = env.WORKSPACE
                     def CONFIG_PATH= "${workspace}/rtcjenkinsutil/config/config.properties"
@@ -32,15 +66,67 @@ pipeline {
                 }
             }
         }
-        stage('code checkout') {
-
-            agent any
-
+        stage('Update bootstrap') {
+          /*agent {
+                node{
+                label 'master'
+                }
+                }*/
             steps {
-                step([$class: 'RTCPostBuildDeliverPublisher', failOnError: true])
-                echo "Checking out a snapshot in node from snapshot configuration"
-                checkout([$class: 'RTCScm', avoidUsingToolkit: false, buildTool: '6.0.4', buildType: [buildWorkspace: params.RepositoryWorkspace, componentLoadConfig: 'loadAllComponents', customizedSnapshotName: '', loadDirectory: '.', loadPolicy: 'useComponentLoadConfig', value: 'buildWorkspace'], credentialsId: params.credentialsId, overrideGlobal: false, serverURI: params.RTCServerURI, timeout: 480])
+                script{
+                    updateBootstrap("curam.db.username",params.DBusername)
+                    updateBootstrap("curam.db.password",params.DBpassword)
+                    updateBootstrap("curam.db.type","ORA")
+                    updateBootstrap("curam.dmx.locale","en_US")
+                    updateBootstrap("curam.db.oracle.servicename",params.ORCservicename)
+                    updateBootstrap("curam.db.zos.encoding","EBCDIC")
+                    updateBootstrap("curam.db.servername",params.DBservername)
+                    updateBootstrap("curam.db.serverport",params.DBserverport)
+                    updateBootstrap("curam.environment.tnameserv.port",params.tnameservport)
+                    updateBootstrap("curam.environment.bindings.location","${env.checkoutPath}/Curam/EJBServer/project/properties")
+                    updateBootstrap("curam.db.oracle.cachesize","")
+                    updateBootstrap("curam.db.zos.32ktablespace","")
+                    updateBootstrap("curam.db.zos.dbname","")
+                    updateBootstrap("curam.db.override.bindings","yes")
+                    updateBootstrap("curam.environment.default.dateformat","M d yyyy")
+                    updateBootstrap("curam.environment.default.dateseparator","/")
+                    updateBootstrap("curam.database.shortnames","")
+                    updateBootstrap("curam.test.override.date","")
+                    updateBootstrap("curam.db.zos.asciidatabase","")
+                    updateBootstrap("curam.disable.dynamic.properties","")
+                    updateBootstrap("curam.db.oracle.connectioncache.enabled","")
+                    updateBootstrap("curam.db.oracle.connectioncache.minlimit","")
+                    updateBootstrap("curam.db.oracle.connectioncache.maxlimit","")
+                    updateBootstrap("curam.db.oracle.connectioncache.initiallimit","")
+                    updateBootstrap("curam.db.oracle.connectioncache.name","")
+                    updateBootstrap("curam.db.zos.enableforeignkeys","")
+                    updateBootstrap("curam.db.disable.bindings.generation","")
+                    updateBootstrap("curam.ua.motivation.resultRuleSessionDocLocation","")
+                    updateBootstrap("curam.custom.workflow.webservicebpo","")
+                    updateBootstrap("curam.searchserver.server.index.persistence.enable","true")
+                    updateBootstrap("extra.generator.options","-defaultoption class_lastupdatedfield=yes")
+                }
             }
         }
+        stage('run server build') {
+        agent {
+              docker{
+                      // label $NODE
+                      registry "${env.DOCKER_REGISTRY}"
+                      image "${env.SPM_IMAGE_FOR_BUILD}"
+                      registryCredentialsId "${env.DOCKER_CREDS}"
+              }
+          }
+            steps {
+                script{
+                    def workspace = env.WORKSPACE
+                    def CONFIG_PATH= "${workspace}/rtcjenkinsutil/config/config.properties"
+                    echo "${CONFIG_PATH}"
+                    setEnvironment(CONFIG_PATH)
+                }
+            }
+        }
+
+
     }
 }

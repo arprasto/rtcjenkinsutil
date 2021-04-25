@@ -1,0 +1,15 @@
+#openssl genrsa -out key.pem
+#openssl req -new -key key.pem -out csr.pem
+#openssl x509 -req -days 9999 -in csr.pem -signkey key.pem -out cert.pem
+#rm csr.pem
+
+FROM jenkins:2.60.3
+USER root
+RUN apt-get update -y && apt-get install -y ruby
+COPY cert.pem /var/lib/jenkins/cert
+COPY key.pem /var/lib/jenkins/pk
+ENV JENKINS_OPTS --httpPort=-1 --httpsPort=8083 --httpsCertificate=/var/lib/jenkins/cert --httpsPrivateKey=/var/lib/jenkins/pk
+USER jenkins
+EXPOSE 8083
+
+#docker run -p 8888:8083 -p 50000:50000 -d -v /root/ws/jenkins_home:/var/jenkins_home arprasto/jenikinsimagewithrtc:v1
