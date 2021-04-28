@@ -21,13 +21,9 @@ pipeline {
     }
 
     stages{
-        stage('checkout SPM Utils') {
-            steps {
-            checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanBeforeCheckout'], [$class: 'RelativeTargetDirectory', relativeTargetDir: 'rtcjenkinsutil']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '2c2c816b-5353-449a-9bbe-0f70e4e977b1', url: 'https://github.com/arprasto/rtcjenkinsutil.git']]])
-            }
-        }
         stage('create directories') {
             agent {
+                  label: 'master'
                   docker { image 'spmdevops1.fyre.ibm.com:8082/spm-curam-builder' }
                   }
             steps {
@@ -45,6 +41,7 @@ pipeline {
         }
         stage('code checkout') {
             agent {
+                  label: 'master'
                   docker { image 'spmdevops1.fyre.ibm.com:8082/spm-curam-builder' }
                   }
             steps {
@@ -57,6 +54,7 @@ pipeline {
         }
         stage('Load config.properties') {
             agent {
+                  label: 'master'
                   docker { image 'spmdevops1.fyre.ibm.com:8082/spm-curam-builder' }
                   }
             steps {
@@ -70,6 +68,7 @@ pipeline {
         }
         stage('Update bootstrap') {
             agent {
+                  label: 'master'
                   docker { image 'spmdevops1.fyre.ibm.com:8082/spm-curam-builder' }
                   }
             steps {
@@ -110,6 +109,7 @@ pipeline {
         }
         stage('server build') {
             agent {
+                  label: 'master'
                   docker { image 'spmdevops1.fyre.ibm.com:8082/spm-curam-builder' }
                   }
             steps {
