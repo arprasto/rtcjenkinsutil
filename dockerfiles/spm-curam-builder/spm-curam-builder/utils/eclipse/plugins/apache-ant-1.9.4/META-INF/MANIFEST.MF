@@ -1,0 +1,191 @@
+Manifest-Version: 1.0
+Bundle-ClassPath: lib/ant-antlr.jar,lib/ant-apache-bcel.jar,lib/ant-ap
+ ache-bsf.jar,lib/ant-apache-log4j.jar,lib/ant-apache-oro.jar,lib/ant-
+ apache-regexp.jar,lib/ant-apache-resolver.jar,lib/ant-apache-xalan2.j
+ ar,lib/ant-commons-logging.jar,lib/ant-commons-net.jar,lib/ant-jai.ja
+ r,lib/ant-javamail.jar,lib/ant-jdepend.jar,lib/ant-jmf.jar,lib/ant-js
+ ch.jar,lib/ant-junit.jar,lib/ant-junit4.jar,lib/ant-launcher.jar,lib/
+ ant-netrexx.jar,lib/ant-swing.jar,lib/ant-testutil.jar,lib/ant.jar
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.apache.ant
+Eclipse-SourceReferences: scm:cvs:pserver:dev.eclipse.org:/cvsroot/too
+ ls:org.eclipse.orbit/org.apache.ant;tag=v201410062020
+Bundle-Version: 1.9.4.v201410062020
+Export-Package: org.apache.tools.ant,org.apache.tools.ant.attribute,or
+ g.apache.tools.ant.dispatch,org.apache.tools.ant.filters,org.apache.t
+ ools.ant.filters.util,org.apache.tools.ant.helper,org.apache.tools.an
+ t.input,org.apache.tools.ant.launch,org.apache.tools.ant.listener,org
+ .apache.tools.ant.loader,org.apache.tools.ant.property,org.apache.too
+ ls.ant.taskdefs,org.apache.tools.ant.taskdefs.compilers,org.apache.to
+ ols.ant.taskdefs.condition,org.apache.tools.ant.taskdefs.cvslib,org.a
+ pache.tools.ant.taskdefs.email,org.apache.tools.ant.taskdefs.launcher
+ ,org.apache.tools.ant.taskdefs.optional,org.apache.tools.ant.taskdefs
+ .optional.ccm,org.apache.tools.ant.taskdefs.optional.clearcase,org.ap
+ ache.tools.ant.taskdefs.optional.depend,org.apache.tools.ant.taskdefs
+ .optional.depend.constantpool,org.apache.tools.ant.taskdefs.optional.
+ ejb,org.apache.tools.ant.taskdefs.optional.extension,org.apache.tools
+ .ant.taskdefs.optional.extension.resolvers,org.apache.tools.ant.taskd
+ efs.optional.i18n,org.apache.tools.ant.taskdefs.optional.image,org.ap
+ ache.tools.ant.taskdefs.optional.j2ee,org.apache.tools.ant.taskdefs.o
+ ptional.javacc,org.apache.tools.ant.taskdefs.optional.javah,org.apach
+ e.tools.ant.taskdefs.optional.jdepend,org.apache.tools.ant.taskdefs.o
+ ptional.jlink,org.apache.tools.ant.taskdefs.optional.jsp,org.apache.t
+ ools.ant.taskdefs.optional.jsp.compilers,org.apache.tools.ant.taskdef
+ s.optional.junit,org.apache.tools.ant.taskdefs.optional.native2ascii,
+ org.apache.tools.ant.taskdefs.optional.net,org.apache.tools.ant.taskd
+ efs.optional.pvcs,org.apache.tools.ant.taskdefs.optional.script,org.a
+ pache.tools.ant.taskdefs.optional.sos,org.apache.tools.ant.taskdefs.o
+ ptional.sound,org.apache.tools.ant.taskdefs.optional.splash,org.apach
+ e.tools.ant.taskdefs.optional.ssh,org.apache.tools.ant.taskdefs.optio
+ nal.testing,org.apache.tools.ant.taskdefs.optional.unix,org.apache.to
+ ols.ant.taskdefs.optional.vss,org.apache.tools.ant.taskdefs.optional.
+ windows,org.apache.tools.ant.taskdefs.rmic,org.apache.tools.ant.types
+ ,org.apache.tools.ant.types.mappers,org.apache.tools.ant.types.option
+ al,org.apache.tools.ant.types.optional.depend,org.apache.tools.ant.ty
+ pes.optional.image,org.apache.tools.ant.types.resolver,org.apache.too
+ ls.ant.types.resources,org.apache.tools.ant.types.resources.comparato
+ rs,org.apache.tools.ant.types.resources.selectors,org.apache.tools.an
+ t.types.selectors,org.apache.tools.ant.types.selectors.modifiedselect
+ or,org.apache.tools.ant.types.spi,org.apache.tools.ant.util,org.apach
+ e.tools.ant.util.depend,org.apache.tools.ant.util.depend.bcel,org.apa
+ che.tools.ant.util.facade,org.apache.tools.ant.util.java15,org.apache
+ .tools.ant.util.optional,org.apache.tools.ant.util.regexp,org.apache.
+ tools.bzip2,org.apache.tools.mail,org.apache.tools.tar,org.apache.too
+ ls.zip
+Bundle-ManifestVersion: 2
+
+Name: lib/ant-jmf.jar
+SHA1-Digest: rK3kkR6VqN+2u0JUzQNO6nAfZyg=
+
+Name: about_files/LICENSE-2.0.txt
+SHA1-Digest: WIU+uBmbWv5ypzol/Yz4yUKFF0s=
+
+Name: lib/ant-apache-bcel.jar
+SHA1-Digest: iJvR0uL5K0qbh9gKvVuF35LalWY=
+
+Name: about_files/SAX-LICENSE.html
+SHA1-Digest: ZKBCUbm0jWyuMMN8Lonx8WcgSTY=
+
+Name: etc/mmetrics-frames.xsl
+SHA1-Digest: cQnziGYZC2FrO0zwFE92P1bP2v8=
+
+Name: etc/tagdiff.xsl
+SHA1-Digest: ddaegkBkww5CoIlRpSR8RDUI1bQ=
+
+Name: lib/ant.jar
+SHA1-Digest: bUc+hlPZUgRfVQ9O8iWpWRt5CUo=
+
+Name: lib/ant-apache-oro.jar
+SHA1-Digest: RUGsnJViZQARnV7NoVbKCpP/3Do=
+
+Name: lib/ant-jsch.jar
+SHA1-Digest: y/g4KyjooWwW7nu2leLApuiYTW8=
+
+Name: lib/ant-netrexx.jar
+SHA1-Digest: vh+ByGxdAVu21Wz2n1CnGt74fVY=
+
+Name: plugin.properties
+SHA1-Digest: m5BCG03kg/puOdE+Ms30+cKxHRE=
+
+Name: lib/ant-jai.jar
+SHA1-Digest: WXfqxHNc7mSqRMUZAGF36kA2RCI=
+
+Name: lib/ant-jdepend.jar
+SHA1-Digest: 4jaj5lBF8MEUoMGy5bFHjk50Sk0=
+
+Name: etc/coverage-frames.xsl
+SHA1-Digest: 5SE/NhPWEbqzGDGL58dwEbkhwRs=
+
+Name: lib/ant-apache-bsf.jar
+SHA1-Digest: jxYS/fg7X4i5oIpidt89j+bWyfM=
+
+Name: about_files/LICENSE
+SHA1-Digest: 7YN4w420vhP8p8RJsb0DIiJJXoE=
+
+Name: lib/ant-apache-log4j.jar
+SHA1-Digest: wKjIqXlnPSiEpUIK/7t3BsClsKg=
+
+Name: lib/ant-apache-resolver.jar
+SHA1-Digest: yRwDS8AH1FXaAxSpHjw241kzkTI=
+
+Name: etc/checkstyle/checkstyle-frames.xsl
+SHA1-Digest: eI6ze0DV5OBNlIe3RYXOoCU+kFA=
+
+Name: about_files/NOTICE
+SHA1-Digest: f3eY0b8hWSPiLmkHLISJZeIStTo=
+
+Name: lib/ant-junit4.jar
+SHA1-Digest: OSprRyJw4MFUWw1DHV1OI/hPqkM=
+
+Name: etc/junit-frames.xsl
+SHA1-Digest: LMZTTbxWsbFtFfbEzJ+cYEsGXqE=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: M1yh6ypEH7aiF3JiaBs2vAuNi54=
+
+Name: etc/junit-noframes.xsl
+SHA1-Digest: s7cHvthv9JcKCuhgjuNeawj80Qw=
+
+Name: lib/ant-apache-regexp.jar
+SHA1-Digest: GvQq3+pV8V6MpC9hZAyB/rPGvKQ=
+
+Name: etc/checkstyle/checkstyle-text.xsl
+SHA1-Digest: CqSzAXEeeV20DtFpeujwjL9FEW8=
+
+Name: lib/ant-antlr.jar
+SHA1-Digest: TPMAJZgdwjRDJKDvDkAGPD7wjwo=
+
+Name: lib/ant-junit.jar
+SHA1-Digest: sGN1fayqcWtkPC+ScORpGDY2/xE=
+
+Name: about.html
+SHA1-Digest: AkmC2BSKNnG6uFPOx3HO+uwYniM=
+
+Name: etc/log.xsl
+SHA1-Digest: juv2H0VplMm4ri1rzgdOW0yCroc=
+
+Name: about_files/DOM-LICENSE.html
+SHA1-Digest: rboTiCAQtLwES9gvNVZKh7lnkMI=
+
+Name: etc/maudit-frames.xsl
+SHA1-Digest: 1oML7OYqWjV+hPKu/ItdzrAFGcA=
+
+Name: lib/ant-testutil.jar
+SHA1-Digest: 779AlVpS0QYpEN9owywsB2lDxkE=
+
+Name: etc/junit-frames-xalan1.xsl
+SHA1-Digest: a4jw8tM75j+iaWr3qY/4KNjPYTs=
+
+Name: lib/ant-commons-net.jar
+SHA1-Digest: vxY4M+p1LL5Ap3r/5G04C/dPh1g=
+
+Name: lib/ant-javamail.jar
+SHA1-Digest: 6okrLnFeM+SCUXlxgZ/vF2+LuNU=
+
+Name: lib/ant-commons-logging.jar
+SHA1-Digest: HvT+op+Xe78KtNTAByaD3Phn530=
+
+Name: lib/ant-swing.jar
+SHA1-Digest: H1BERQ2ZvSgHRU9+W12VdzcgC4g=
+
+Name: etc/jdepend-frames.xsl
+SHA1-Digest: U2Bb6aMxgbEYqXkCm2sujeLP7Zo=
+
+Name: etc/checkstyle/checkstyle-xdoc.xsl
+SHA1-Digest: yL3TqCA4pc0daZXtXwAiCN6xHxI=
+
+Name: etc/changelog.xsl
+SHA1-Digest: 2EZZ+jSTt1TTlBYPN4vGUAX7cTQ=
+
+Name: lib/ant-launcher.jar
+SHA1-Digest: M0tiy0vgQydpZ56LlOg/j9XtOVw=
+
+Name: lib/ant-apache-xalan2.jar
+SHA1-Digest: DImNLZ7s9TZHGP5lYdtMWesKDk8=
+
+Name: etc/jdepend.xsl
+SHA1-Digest: 0rf14aLzhLsun24uUsXVVvkHM6I=
+

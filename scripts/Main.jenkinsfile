@@ -65,10 +65,10 @@ pipeline {
                   step([$class: 'RTCPostBuildDeliverPublisher', failOnError: true])
                   echo "Checking out from RTC"
                   script{
-                  /*
                   checkoutRTCcode(params.RepositoryWorkspace,env.checkoutPath,params.credentialsId,params.RTCServerURI)
-                  */
+                  /*
                   checkout([$class: 'RTCScm',avoidUsingToolkit: false, buildTool: '6.0.4', buildType: [buildWorkspace: RepositoryWorkspace, componentLoadConfig: 'loadAllComponents', customizedSnapshotName: '', loadDirectory: env.checkoutPath, loadPolicy: 'useComponentLoadConfig', value: 'buildWorkspace'], credentialsId: params.credentialsId, overrideGlobal: false, serverURI: params.RTCServerURI, timeout: 480])
+                  */
                   }
                   }
         }

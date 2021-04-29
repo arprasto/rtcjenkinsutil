@@ -1,0 +1,5 @@
+#Eclipse Product File
+#Mon May 15 12:50:50 EDT 2017
+version=3.0.1600.v20170404_0217
+name=%Application.Name
+id=com.ibm.team.build.engine.product

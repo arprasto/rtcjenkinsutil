@@ -1,0 +1,79 @@
+Manifest-Version: 1.0
+Export-Package: org.apache.http;version="4.4.1";uses:="org.apache.http
+ .protocol,org.apache.http.params,org.apache.http.util",org.apache.htt
+ p.annotation;version="4.4.1",org.apache.http.benchmark;version="4.4.1
+ "; uses:="org.apache.http.message,  org.apache.http.io,  org.apache.h
+ ttp.impl,  org.apache.commons.cli,  javax.net,  org.apache.http.ssl, 
+  org.apache.http",org.apache.http.concurrent;version="4.4.1",org.apac
+ he.http.config;version="4.4.1",org.apache.http.entity;version="4.4.1"
+ ;uses:="org.apache.http",org.apache.http.impl;version="4.4.1"; uses:=
+ "org.apache.http.impl.entity,  org.apache.http.io,  org.apache.http.p
+ rotocol,  org.apache.http.params,  org.apache.http.entity,  org.apach
+ e.http.config,  org.apache.http",org.apache.http.impl.bootstrap;versi
+ on="4.4.1"; uses:="javax.net,  org.apache.http.protocol,  org.apache.
+ http.config,  javax.net.ssl,  org.apache.http",org.apache.http.impl.e
+ ntity;version="4.4.1";uses:="org.apache.http.io,org.apache.http.entit
+ y,org.apache.http",org.apache.http.impl.io;version="4.4.1"; uses:="or
+ g.apache.http.message,  org.apache.http.io,  org.apache.http.params, 
+  org.apache.http.config,  org.apache.http.util,  org.apache.http",org
+ .apache.http.impl.nio;version="4.4.1"; uses:="org.apache.http.io,  or
+ g.apache.http.protocol,  org.apache.http.impl.io,  org.apache.http.im
+ pl,  org.apache.http.params,  org.apache.http.entity,  org.apache.htt
+ p.nio.util,  org.apache.http.impl.nio.reactor,  org.apache.http.nio, 
+  org.apache.http.nio.reactor.ssl,  org.apache.http.nio.reactor,  org.
+ apache.http.config,  javax.net.ssl,  org.apache.http",org.apache.http
+ .impl.nio.bootstrap;version="4.4.1"; uses:="org.apache.http.protocol,
+   org.apache.http.impl.nio.reactor,  org.apache.http.nio,  org.apache
+ .http.nio.reactor.ssl,  org.apache.http.nio.reactor,  org.apache.http
+ .nio.protocol,  org.apache.http.config,  javax.net.ssl,  org.apache.h
+ ttp",org.apache.http.impl.nio.codecs;version="4.4.1"; uses:="org.apac
+ he.http.message,  org.apache.http.impl.io,  org.apache.http.params,  
+ org.apache.http.nio.reactor,  org.apache.http.config,  org.apache.htt
+ p.util,  org.apache.http.nio,  org.apache.http",org.apache.http.impl.
+ nio.pool;version="4.4.1"; uses:="org.apache.http.pool,  org.apache.ht
+ tp.params,  org.apache.http.nio.util,  org.apache.http.nio,  org.apac
+ he.http.nio.reactor.ssl,  org.apache.http.nio.reactor,  org.apache.ht
+ tp.config,  org.apache.http.nio.pool,  javax.net.ssl,  org.apache.htt
+ p,  org.apache.http.concurrent",org.apache.http.impl.nio.reactor;vers
+ ion="4.4.1"; uses:="org.apache.http.params,  org.apache.http.nio.util
+ ,  org.apache.http.nio.reactor.ssl,  org.apache.http.nio.reactor,  or
+ g.apache.http.config,  javax.net.ssl,  org.apache.http.util",org.apac
+ he.http.impl.nio.ssl;version="4.4.1"; uses:="org.apache.http.impl.nio
+ ,  org.apache.http.params,  org.apache.http.nio.reactor,  org.apache.
+ http.impl.nio.reactor,  javax.net.ssl,  org.apache.http.nio",org.apac
+ he.http.impl.pool;version="4.4.1"; uses:="javax.net,  org.apache.http
+ .pool,  org.apache.http.params,  org.apache.http.config,  javax.net.s
+ sl,  org.apache.http",org.apache.http.io;version="4.4.1";uses:="org.a
+ pache.http.config,org.apache.http.util,org.apache.http",org.apache.ht
+ tp.message;version="4.4.1";uses:="org.apache.http.params,org.apache.h
+ ttp.util,org.apache.http",org.apache.http.nio;version="4.4.1"; uses:=
+ "org.apache.http.protocol,  org.apache.http.nio.reactor,  org.apache.
+ http.config,  org.apache.http",org.apache.http.nio.entity;version="4.
+ 4.1"; uses:="org.apache.http.entity,  org.apache.http.nio.util,  org.
+ apache.http.nio,  org.apache.http",org.apache.http.nio.params;version
+ ="4.4.1";uses:="org.apache.http.params",org.apache.http.nio.pool;vers
+ ion="4.4.1";uses:="org.apache.http.pool,org.apache.http.nio.reactor,o
+ rg.apache.http.concurrent",org.apache.http.nio.protocol;version="4.4.
+ 1"; uses:="org.apache.http.protocol,  org.apache.http.pool,  org.apac
+ he.http.params,  org.apache.http.entity,  org.apache.http.nio.util,  
+ org.apache.http.nio,  org.apache.http.nio.entity,  org.apache.http.co
+ ncurrent,  org.apache.http",org.apache.http.nio.reactor;version="4.4.
+ 1";uses:="org.apache.http.util",org.apache.http.nio.reactor.ssl;versi
+ on="4.4.1";uses:="org.apache.http.nio.reactor,javax.net.ssl,org.apach
+ e.http",org.apache.http.nio.util;version="4.4.1";uses:="org.apache.ht
+ tp.io,org.apache.http.nio",org.apache.http.params;version="4.4.1";use
+ s:="org.apache.http.config,org.apache.http",org.apache.http.pool;vers
+ ion="4.4.1";uses:="org.apache.http.concurrent",org.apache.http.protoc
+ ol;version="4.4.1";uses:="org.apache.http.params,org.apache.http",org
+ .apache.http.ssl;version="4.4.1";uses:="javax.net.ssl",org.apache.htt
+ p.util;version="4.4.1";uses:="org.apache.http"
+Bundle-Vendor: The Apache Software Foundation
+Bundle-ClassPath: lib/commons-cli-1.2.jar,lib/httpcore-4.4.1.jar,lib/h
+ ttpcore-ab-4.4.1.jar,lib/httpcore-nio-4.4.1.jar
+Bundle-Version: 4.4.1.v20160915_1643
+Bundle-Name: Apache HttpCore
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.apache.http
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+
+
