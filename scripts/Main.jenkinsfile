@@ -23,8 +23,12 @@ pipeline {
     stages{
         stage('create directories') {
             agent {
-                  label: 'master'
-                  docker { image 'spmdevops1.fyre.ibm.com:8082/spm-curam-builder' }
+            docker{
+                  // label $NODE
+                  registryUrl "${env.DOCKER_REGISTRY_URL}"
+                  image "${env.SPM_IMAGE_FOR_BUILD}"
+                  registryCredentialsId "${env.DOCKER_CREDS}"
+              }
                   }
             steps {
                 script{
@@ -41,8 +45,7 @@ pipeline {
         }
         stage('code checkout') {
             agent {
-                  label: 'master'
-                  docker { image 'spmdevops1.fyre.ibm.com:8082/spm-curam-builder' }
+                  docker { image 'docker.io/arprasto/spm-curam-builder:latest' }
                   }
             steps {
                 step([$class: 'RTCPostBuildDeliverPublisher', failOnError: true])
@@ -54,8 +57,7 @@ pipeline {
         }
         stage('Load config.properties') {
             agent {
-                  label: 'master'
-                  docker { image 'spmdevops1.fyre.ibm.com:8082/spm-curam-builder' }
+                  docker { image 'docker.io/arprasto/spm-curam-builder:latest' }
                   }
             steps {
                 script{
@@ -68,8 +70,7 @@ pipeline {
         }
         stage('Update bootstrap') {
             agent {
-                  label: 'master'
-                  docker { image 'spmdevops1.fyre.ibm.com:8082/spm-curam-builder' }
+                  docker { image 'docker.io/arprasto/spm-curam-builder:latest' }
                   }
             steps {
                 script{
@@ -109,8 +110,7 @@ pipeline {
         }
         stage('server build') {
             agent {
-                  label: 'master'
-                  docker { image 'spmdevops1.fyre.ibm.com:8082/spm-curam-builder' }
+                  docker { image 'docker.io/arprasto/spm-curam-builder:latest' }
                   }
             steps {
                 script{
