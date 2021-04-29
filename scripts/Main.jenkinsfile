@@ -21,10 +21,23 @@ pipeline {
     }
 
     stages{
+        stage('checkout SPM Utils') {
+                steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanBeforeCheckout'], [$class: 'RelativeTargetDirectory', relativeTargetDir: 'rtcjenkinsutil']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '2c2c816b-5353-449a-9bbe-0f70e4e977b1', url: 'https://github.com/arprasto/rtcjenkinsutil.git']]])            }
+            }
+        stage('Load config.properties in Jenkins') {
+            steps {
+                script{
+                    def utildir = env.WORKSPACE
+                    def CONFIG_PATH= "${utildir}/rtcjenkinsutil/config/config.properties"
+                    echo "${CONFIG_PATH}"
+                    setEnvironment(CONFIG_PATH)
+                }
+            }
+        }
         stage('create directories') {
             agent {
             docker{
-                  // label $NODE
                   registryUrl "${env.DOCKER_REGISTRY_URL}"
                   image "${env.SPM_IMAGE_FOR_BUILD}"
                   registryCredentialsId "${env.DOCKER_CREDS}"
