@@ -4,8 +4,8 @@ RUN yum -y install git
 RUN yum -y install wget
 RUN yum -y install unzip
 RUN git clone https://github.com/IBM/spm-kubernetes
-RUN mkdir -p /opt/ant /opt/rtc /home/workdir \
-    && chmod 777 /home/workdir /opt/rtc \
+RUN mkdir -p /opt/ant /home/workdir /var/jenkins_home \
+    && chmod 777 /home/workdir /var/jenkins_home \
     && cd /opt/ant \
     && wget https://archive.apache.org/dist/ant/binaries/apache-ant-1.10.6-bin.zip \
     && unzip -x apache-ant-1.10.6-bin.zip
@@ -14,6 +14,6 @@ ENV ANT_HOME=/opt/ant/apache-ant-1.10.6
 ENV PATH=${PATH}:$ANT_HOME/bin
 RUN mkdir -p /opt/dependencies
 COPY dependencies /opt/dependencies
-COPY utils /opt/rtc/
+RUN unzip /opt/dependencies/RTC-BuildSystem-Toolkit-Linux64-6.0.4.zip -d /var/jenkins_home/
 ENV REQUIREDJARS=/opt/dependencies
 ENV IBM_MQ=/opt/dependencies/9.1.5.0-IBM-MQ-Java-InstallRA.jar
