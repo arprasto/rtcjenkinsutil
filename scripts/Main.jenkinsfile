@@ -23,29 +23,24 @@ pipeline {
     stages{
         stage('checkout SPM Utils') {
                 steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanBeforeCheckout'], [$class: 'RelativeTargetDirectory', relativeTargetDir: 'rtcjenkinsutil']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '2c2c816b-5353-449a-9bbe-0f70e4e977b1', url: 'https://github.com/arprasto/rtcjenkinsutil.git']]])            }
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanBeforeCheckout'], [$class: 'RelativeTargetDirectory', relativeTargetDir: 'rtcjenkinsutil']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '2c2c816b-5353-449a-9bbe-0f70e4e977b1', url: 'https://github.com/arprasto/rtcjenkinsutil.git']]])
+                }
             }
         stage('Load initial config.properties') {
             steps {
                 script{
-                    def utildir = env.WORKSPACE
-                    def CONFIG_PATH= "${utildir}/rtcjenkinsutil/config/config.properties"
+                    def utildir = env.WORKSPACE+"/rtcjenkinsutil"
+                    env.UTILDIR = utildir
+                    def CONFIG_PATH= "${utildir}/config/config.properties"
                     echo "${CONFIG_PATH}"
                     setEnvironment(CONFIG_PATH)
                 }
             }
         }
         stage('create directories') {
-            agent {
-                docker{
-                      registryUrl "${env.DOCKER_REGISTRY_URL}"
-                      image "${env.SPM_IMAGE_FOR_BUILD}"
-                      registryCredentialsId "${env.DOCKER_CREDS}"
-                  }
-                  }
             steps {
                 script{
-                    def workspace = env.WORKDIR
+                    def workspace = env.JENKINS_HOME
                     def repo = params.RepositoryWorkspace
                     def CHECKOUT_PATH= "${workspace}/${repo}"
                     createDir(CHECKOUT_PATH)
@@ -54,20 +49,13 @@ pipeline {
             }
         }
         stage('code checkout') {
-            agent {
-                docker{
-                      registryUrl "${env.DOCKER_REGISTRY_URL}"
-                      image "${env.SPM_IMAGE_FOR_BUILD}"
-                      registryCredentialsId "${env.DOCKER_CREDS}"
-                  }
-                  }
             steps {
                   step([$class: 'RTCPostBuildDeliverPublisher', failOnError: true])
                   echo "Checking out from RTC"
                   script{
-                  checkoutRTCcode(params.RepositoryWorkspace,env.checkoutPath,params.credentialsId,params.RTCServerURI)
+                  echo "Checking out from RTC"
                   /*
-                  checkout([$class: 'RTCScm',avoidUsingToolkit: false, buildTool: '6.0.4', buildType: [buildWorkspace: RepositoryWorkspace, componentLoadConfig: 'loadAllComponents', customizedSnapshotName: '', loadDirectory: env.checkoutPath, loadPolicy: 'useComponentLoadConfig', value: 'buildWorkspace'], credentialsId: params.credentialsId, overrideGlobal: false, serverURI: params.RTCServerURI, timeout: 480])
+                  checkoutRTCcode(params.RepositoryWorkspace,env.checkoutPath,params.credentialsId,params.RTCServerURI)
                   */
                   }
                   }
@@ -110,13 +98,6 @@ pipeline {
             }
         }
         stage('server build') {
-            agent {
-                docker{
-                      registryUrl "${env.DOCKER_REGISTRY_URL}"
-                      image "${env.SPM_IMAGE_FOR_BUILD}"
-                      registryCredentialsId "${env.DOCKER_CREDS}"
-                  }
-                  }
             steps {
                 script{
                     echo "starting server build"
